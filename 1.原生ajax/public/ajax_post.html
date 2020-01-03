@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试原生ajax_post</title>
+</head>
+<body>
+<h2>该页面是练习使用原生js，发送ajax_post请求</h2>
+<button id="btn">点我使用原生js发送ajax_post请求</button>
+<div id="test"></div>
+
+<script type="text/javascript">
+
+  let btn = document.getElementById('btn')
+
+  btn.onclick = ()=>{
+    let xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = ()=>{
+      if(xhr.readyState === 4 && xhr.status === 200){
+        document.getElementById('test').innerHTML = xhr.response
+      }
+    }
+    xhr.open('post','http://localhost:3000/test_post')
+    //xhr.send()
+
+    //post请求所特有的请求头---urlencoded编码形式的参数
+    xhr.setRequestHeader('content-type','application/x-www-form-urlencoded')
+    xhr.send('sex=男&price=100000')
+
+    //post请求所特有的请求头---json编码形式的参数
+    //xhr.setRequestHeader('content-type','application/json')
+    //xhr.send(JSON.stringify({name:'kobe',age:18}))
+
+  }
+
+</script>
+
+
+</body>
+</html>

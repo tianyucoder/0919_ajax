@@ -7,6 +7,7 @@
 <body>
 <h2>该页面是练习使用原生js，发送ajax_get请求</h2>
 <button id="btn">点我使用原生js发送ajax_get请求</button>
+<div id="test"></div>
 
 <script type="text/javascript">
 
@@ -19,10 +20,18 @@
 
     //2.绑定一个特殊事件监听，用于获取服务器返回的数据
     xhr.onreadystatechange = ()=>{
-      //xhr自身有5种状态：0、1、2、3、4(最终状态，代表着数据已经完美的回来了)
+      /*
+      * xhr自身有5种状态：
+      *   0:当xhr对象被实例化出来的那一刻，内部状态(readyState)就是0
+      *   1:此时还没有调用open方法,依然可以去修改请求头
+      *   2:此时已经调用了open方法,不可以去修改请求头
+      *   3:数据已经回来一部分了，（小的数据会在此阶段全部接收完毕，大的数据，有待于进一步接收）
+      *   4:最终状态，代表着数据已经完美的回来了
+      * */
       if(xhr.readyState === 4 && xhr.status === 200){
         //在此处可以获取服务器返回的数据
         console.log(xhr.response)
+        document.getElementById('test').innerHTML = xhr.response
       }
     }
 
@@ -31,7 +40,6 @@
 
     //4.去买 ----- 发送请求
     xhr.send()
-
   }
 
 </script>
