@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试原生ajax_get</title>
+</head>
+<body>
+<h2>该页面是练习使用原生js，发送ajax_get请求</h2>
+<button id="btn">点我使用原生js发送ajax_get请求</button>
+
+<script type="text/javascript">
+
+  let btn = document.getElementById('btn')
+
+  btn.onclick = ()=>{
+
+    //1.找来一个帮你“买东西”的人 ------ 实例化一个XMLHttpRequest对象
+    let xhr = new XMLHttpRequest()
+
+    //2.绑定一个特殊事件监听，用于获取服务器返回的数据
+    xhr.onreadystatechange = ()=>{
+      //xhr自身有5种状态：0、1、2、3、4(最终状态，代表着数据已经完美的回来了)
+      if(xhr.readyState === 4 && xhr.status === 200){
+        //在此处可以获取服务器返回的数据
+        console.log(xhr.response)
+      }
+    }
+
+    //3.买什么样的？去哪买？买多少个？ ----- 指定发送请求的：方式、地址、参数
+    xhr.open('get','http://localhost:3000/test_get?name=kobe&age=18')
+
+    //4.去买 ----- 发送请求
+    xhr.send()
+
+  }
+
+</script>
+
+
+</body>
+</html>

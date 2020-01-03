@@ -1,0 +1,22 @@
+{
+  "name": "ajax_0919",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tianyu5177/0919_ajax.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tianyu5177/0919_ajax/issues"
+  },
+  "homepage": "https://github.com/Tianyu5177/0919_ajax#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
