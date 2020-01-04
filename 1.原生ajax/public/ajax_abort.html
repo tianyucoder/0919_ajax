@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试xhr的abort方法</title>
+</head>
+<body>
+<h2>该页面是测试xhr的abort方法</h2>
+<button id="btn">点我测试xhr的abort方法</button>
+<div id="test"></div>
+
+<script type="text/javascript">
+
+  let btn = document.getElementById('btn')
+
+  btn.onclick = function () {
+    let xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = function () {
+      if(xhr.readyState === 4 && xhr.status === 200){
+        console.log(JSON.parse(xhr.response))
+      }
+    }
+    xhr.open('get','http://localhost:3000/test_get?name=kobe&age=18')
+    xhr.send()
+    //xhr.abort()
+    setTimeout(()=>{
+      xhr.abort()
+    },1000)
+    /*
+    * 1.来得及，取消了本次请求，服务器不会收到请求。
+    * 2.前端等1秒调用abort，服务器迅速返回数据，abort根本不起作用
+    * 3.前端等1秒调用abort，服务器延迟2秒返回数据，abort起作用，服务器收到了请求，但是数据被“拒之门外了”
+    * */
+  }
+
+</script>
+
+
+</body>
+</html>

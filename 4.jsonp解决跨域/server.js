@@ -10,6 +10,7 @@ app.use(express.json())
 //配置路由
 app.get('/test_get',(request,response)=>{
   const {callback} = request.query
+  console.log(callback)
   let persons = [{name:'kobe',age:18},{name:'wade',age:19}]
   response.send(`${callback}(${JSON.stringify(persons)})`)
 })

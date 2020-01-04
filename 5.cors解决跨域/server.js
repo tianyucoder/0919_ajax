@@ -11,15 +11,15 @@ app.use(express.static(__dirname+'/public'))
 
 //配置路由
 app.get('/test_get',(request,response)=>{
+  response.set('Access-Control-Allow-Origin', '*');
   console.log('请求携带的参数是：',request.query)
-  setTimeout(()=>{
-    let persons = [{name:'kobe',age:18},{name:'wade',age:19}]
-    response.send(persons)
-  },2000)
+  let persons = [{name:'kobe',age:18},{name:'wade',age:19}]
+  response.send(persons)
 })
 
 //配置路由
 app.post('/test_post',(request,response)=>{
+  response.set('Access-Control-Allow-Origin', '*');
   console.log('请求携带的参数是：',request.body)
   response.send('你发过来的是post请求，我是服务器返回的一些数据')
 })
@@ -27,10 +27,7 @@ app.post('/test_post',(request,response)=>{
 //4.绑定端口监听
 app.listen(3000,(err)=>{
   if(!err) {
-    console.log('小兄弟，不要通过编译器打开html页面，会有跨域问题！！！用下面的地址：')
-    console.log('练习原生js发送ajax_get请求的页面地址为：http://localhost:3000/ajax_get.html')
-    console.log('练习原生js发送ajax_post请求的页面地址为：http://localhost:3000/ajax_post.html')
-    console.log('练习xhr的abort方法是页面地址为：http://localhost:3000/ajax_abort.html')
+    console.log('小兄弟，必须通过编译器打开html页面，制造跨域问题，后端已经通过cors解决了跨域问题')
   }
   else console.log(err)
 })
