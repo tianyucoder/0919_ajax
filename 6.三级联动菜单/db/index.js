@@ -20,5 +20,3 @@ function connectDB(success,error) {
 }
 
 module.exports = connectDB
-
-

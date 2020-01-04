@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>三级联动练习</title>
+</head>
+<body>
+省份:
+<select id="province">
+  <option value="">请选择省份</option>
+</select>&nbsp;&nbsp;
+市:
+<select id="city">
+  <option value="">请选择市</option>
+</select>&nbsp;&nbsp;
+区/县:
+<select id="county">
+  <option value="">请选择区/县</option>
+</select>&nbsp;&nbsp;
+<script type="text/javascript" src="./jquery.js"></script>
+
+<script type="text/javascript">
+
+  let $province = $('#province')
+  let $city = $('#city')
+  let $county = $('#county')
+
+  $(()=>{
+
+    //一上来就请求所有省份信息
+    $.get('http://localhost:3000/get_all_province',(result)=>{
+      const {status,data,msg} = result
+      if(status === 1){
+        let html = ''
+        data.forEach((pro)=>{
+          html += `<option value="${pro.province}">${pro.name}</option>`
+        })
+        $province.append(html)
+      }else{
+        alert(msg)
+      }
+    })
+
+    //当所选省份发生变化时，去请求所选择省份下所有市的信息
+    $province.change(function(){
+      $city.html('<option value="">请选择市</option>')
+      $county.html('<option value="">请选择区/县</option>')
+      if(!this.value) return
+      //发送ajax请求获取该省份下所有市的信息
+      $.get('http://localhost:3000/get_cities_by_province',{province:this.value},(result)=>{
+        const {status,data,msg} = result
+        if(status === 1){
+          let html = ''
+          data.forEach((cty)=>{
+            html += `<option value="${cty.city}">${cty.name}</option>`
+          })
+          $city.append(html)
+        }else{
+          alert(msg)
+        }
+      })
+    })
+
+    //当所选城市发生变化时，去请求所选择省份、所选城市下所有区县信息
+    $city.change(function(){
+      $county.html('<option value="">请选择区/县</option>')
+      if(!this.value) return
+      //发送ajax请求获取该省份下所有市的信息
+      $.get('http://localhost:3000/get_counties_by_province_and_city',{
+        province:$province.val(),
+        city:this.value},
+        (result)=>{
+          const {status,data,msg} = result
+          if(status === 1){
+            let html = ''
+            data.forEach((coty)=>{
+              html += `<option value="${coty.code}">${coty.name}</option>`
+            })
+            $county.append(html)
+          }else{
+            alert(msg)
+          }
+      })
+    })
+
+    $county.change(()=>{
+      alert($county.val())
+    })
+  })
+
+
+</script>
+
+</body>
+</html>
