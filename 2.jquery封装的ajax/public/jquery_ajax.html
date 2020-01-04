@@ -52,7 +52,7 @@
     *     error：失败的回调
     * */
     //完整版写法
-    /*$.ajax({
+    $.ajax({
       url:'http://localhost:3000/test_post',
       data:{name:'kobe',age:18},
       method:'post',
@@ -62,11 +62,11 @@
       error:(reason)=>{
         console.log(reason)
       }
-    })*/
-    //精简版写法
-    $.post('http://localhost:3000/test_post',{name:'kobe',age:18},(data)=>{
-      console.log(data)
     })
+    //精简版写法
+    /*$.post('http://localhost:3000/test_post',{name:'kobe',age:18},(data)=>{
+      console.log(data)
+    })*/
   })
 
 
