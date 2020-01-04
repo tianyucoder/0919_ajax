@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jquery_ajax</title>
+</head>
+<body>
+<script type="text/javascript" src="./jquery.min.js"></script>
+<h2>该页面是练习使用jquery_ajax</h2>
+<button id="btn1">点我使用jquery封装的ajax发送get请求</button>
+<button id="btn2">点我使用jquery封装的ajax发送post请求</button>
+
+<script type="text/javascript">
+
+  let btn1 = $('#btn1')
+  let btn2 = $('#btn2')
+
+  btn1.click(()=>{
+    /*
+    * 使用jquery封装的ajax发送请求时的常用属性
+    *     url：发送请求的地址，
+    *     data：携带的参数，
+    *     method：发送请求的方式，
+    *     success：成功的回调，
+    *     error：失败的回调
+    * */
+    //完整版写法
+    $.ajax({
+      url:'http://localhost:3000/test_get',
+      data:{name:'kobe',age:18},
+      method:'get',
+      success:(result)=>{
+        console.log(result)
+      },
+      error:(reason)=>{
+        console.log(reason)
+      }
+    })
+    //精简版写法
+    /*$.get('http://localhost:3000/test_get',{name:'kobe',age:18},(data)=>{
+      console.log(data)
+    })*/
+  })
+
+  btn2.click(()=>{
+    /*
+    * 使用jquery封装的ajax发送请求时的常用属性
+    *     url：发送请求的地址，
+    *     data：携带的参数，
+    *     method：发送请求的方式，
+    *     success：成功的回调，
+    *     error：失败的回调
+    * */
+    //完整版写法
+    /*$.ajax({
+      url:'http://localhost:3000/test_post',
+      data:{name:'kobe',age:18},
+      method:'post',
+      success:(result)=>{
+        console.log(result)
+      },
+      error:(reason)=>{
+        console.log(reason)
+      }
+    })*/
+    //精简版写法
+    $.post('http://localhost:3000/test_post',{name:'kobe',age:18},(data)=>{
+      console.log(data)
+    })
+  })
+
+
+</script>
+
+</body>
+</html>

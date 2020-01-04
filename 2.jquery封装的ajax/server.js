@@ -26,8 +26,7 @@ app.post('/test_post',(request,response)=>{
 app.listen(3000,(err)=>{
   if(!err) {
     console.log('小兄弟，不要通过编译器打开html页面，会有跨域问题！！！用下面的地址：')
-    console.log('练习原生js发送ajax_get请求的页面地址为：http://localhost:3000/ajax_get.html')
-    console.log('练习原生js发送ajax_post请求的页面地址为：http://localhost:3000/ajax_post.html')
+    console.log('练习jquery封装的ajax页面地址为：http://localhost:3000/jquery_ajax.html')
   }
   else console.log(err)
 })
