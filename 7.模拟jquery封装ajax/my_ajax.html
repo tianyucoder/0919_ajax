@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>模拟jquery封装ajax</title>
+</head>
+<body>
+<button id="btn">点我</button>
+<script type="text/javascript">
+
+  let btn = document.getElementById('btn')
+  btn.onclick = ()=>{
+    sendAjax({
+      url:'http://localhost:3000/test_post',
+      method:'post',
+      data:{time:'2020-01-04',price:1000}, //time=2020-01-04&price=1000
+      success:(result)=>{
+        console.log(result)
+      },
+      error:(reason)=>{
+        console.log(reason)
+      }
+    })
+  }
+
+
+
+  //简单模拟jquery的封装
+  function sendAjax(option) {
+    let {url,method,data,success,error} = option
+    method = method || 'get'
+
+    let xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = ()=>{
+      if(xhr.readyState !== 4) return
+      if(xhr.status >= 200 && xhr.status <= 299 ){
+        if(success) success(JSON.parse(xhr.response))
+      }else{
+        if(error) error('请求出错')
+      }
+    }
+
+    //整理参数，将对象类型的参数，整理成urlencoded编码形式的参数
+    let str = ''
+    for (let key in data){
+      str += `${key}=${data[key]}&`
+    }
+
+    if(method.toUpperCase() === 'GET'){
+      xhr.open(method,url+'?'+str)
+      xhr.send()
+    }else{
+      xhr.open(method,url)
+      xhr.setRequestHeader('content-type','application/x-www-form-urlencoded')
+      xhr.send(str)
+    }
+
+  }
+
+</script>
+
+</body>
+</html>
