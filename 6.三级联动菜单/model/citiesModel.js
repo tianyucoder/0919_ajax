@@ -8,3 +8,4 @@ const {Schema} = mongoose
 const citiesRules = new Schema()
 
 module.exports = mongoose.model('cities',citiesRules)
+
